@@ -2,8 +2,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #define MAX_SIZE 100
+typedef int ElemType; 
+
 typedef struct
 {
+	ElemType *elem;
 	int arr[MAX_SIZE];//定义数组arr长度为100
 	int length;//线性表的长度 
 } SeqList;//结构体名 
@@ -21,14 +24,32 @@ typedef struct
 9.NextElem 获取后继元素  获取position+1处的值
 10ListDelete  删除表中元素  目前存在问题 
 
+
+
+
 */
+
+  
+
 void InitList(SeqList *list)//线性表初始化，把线性表长度置零 
 {
-	list->length = 0;
+	list->length = 0;//初识线性表长度为零
+	list->elem = (ElemType *)malloc(MAX_SIZE*sizeof(ElemType));
+	//list->elem 为存储空间基址，，(ElemType*)为int *型内存 ，， MAX_SIZE*sizeof(ElemType) 为内存100与4乘积一共四百字节 
+	if (list->elem == NULL)//判断是否分配成功 
+	{
+		printf("Memory allocation failed！");
+		exit(1);
+	} 
 }
 
 void DestroyList(SeqList *list)
 {
+	if(list->elem != NULL)
+	{
+		free(list->elem);
+		list->elem = NULL;
+	} 
 	list->length = 0;
 } 
 
@@ -74,7 +95,7 @@ int ListDelete (SeqList *list,int position ,int *value)
 	}
 	list->length--;
 	return 0 ;
-}
+}//删除position处元素 
 
 void printList(SeqList *list)
 {
@@ -105,7 +126,7 @@ int PriorElem(SeqList *list,int position,int *value)
 	}
 	*value = list->arr[position - 2];
 	return 0 ;
-} 
+} //获取前驱元素 
 
 int NextElem(SeqList *list,int position,int *value)
 {
@@ -115,11 +136,52 @@ int NextElem(SeqList *list,int position,int *value)
 	}
 	*value = list->arr[position];
 	return 0 ;
-}
+}//获取后继元素 
+
+
+
+void Menu()
+{
+	printf("===================线性表基础操作=============\n"); 
+	printf("===================1.创建线性表===============\n"); 
+	printf("===================2.在指定位置插入元素=======\n"); 
+	printf("===================3.获取指定元素=============\n"); 
+	printf("===================4.获取前驱元素=============\n"); 
+	printf("===================5.获取后继元素=============\n"); 
+	printf("===================6.检查表长=================\n"); 
+	printf("===================7.打印线性表===============\n"); 
+	printf("===================8.检查表是否为空表=========\n"); 
+	printf("===================9.销毁线性表===============\n"); 
+	printf("===================0.退出菜单=================\n"); 
+	printf("===================线性表基础操作=============\n"); 
+	printf("===================线性表基础操作=============\n"); 
+	printf("===================线性表基础操作=============\n"); 
+	printf("===================线性表基础操作=============\n"); 
+} 
 
 int main (void)
 {
+
+	 
 	SeqList list;
+/*	int i;
+	while(1)
+	{
+		Menu();
+		scanf("请选择对线性表的操作%d",i);
+		switch(i)
+		{
+			case 0: exit(0) ; //退出系统
+			case 1: InitList(&list) ; //创建线性表
+			case 2; ListInsert(&list);
+			
+			 
+		}
+		
+		
+	}
+*/
+	
 	InitList (&list);
 	
 	ListInsert(&list,0,10);
@@ -133,7 +195,6 @@ int main (void)
 	ListInsert(&list,8,90);
 	ListInsert(&list,9,100);
 	
-
 	
 	int length = ListLength(&list);
 	printf("Length:%d\n",length);
@@ -173,4 +234,5 @@ int main (void)
 	printf("%d\n",e);
 	printf("%d\n",pre_e);
 	printf("%d\n",next_e);
+
 }
