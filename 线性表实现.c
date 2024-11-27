@@ -1,12 +1,12 @@
 //线性表
 #include<stdio.h>
 #include<stdlib.h>
-#define MAX_SIZE 100
+#define MAX_SIZE 10
 typedef int ElemType; 
 
 typedef struct
 {
-	ElemType *elem;
+	ElemType *elem; // 存放首地址的指针变量 
 	int arr[MAX_SIZE];//定义数组arr长度为100
 	int length;//线性表的长度 
 } SeqList;//结构体名 
@@ -28,9 +28,6 @@ typedef struct
 
 
 *////////////
-
-  
-
 void InitList(SeqList *list)//线性表初始化，把线性表长度置零 
 {
 	list->length = 0;//初识线性表长度为零
@@ -38,48 +35,101 @@ void InitList(SeqList *list)//线性表初始化，把线性表长度置零
 	//list->elem 为存储空间基址，，(ElemType*)为int *型内存 ，， MAX_SIZE*sizeof(ElemType) 为内存100与4乘积一共四百字节 
 	if (list->elem == NULL)//判断是否分配成功 
 	{
-		printf("Memory allocation failed！");
+		printf("Memory allocation failed！\n");
+		printf("初始化失败\n"); 
 		exit(1);
 	} 
+	else
+	{
+		printf("初始化成功\n"); 
+	}
 }
+
 
 void DestroyList(SeqList *list)
 {
 	if(list->elem != NULL)
 	{
 		free(list->elem);
+		printf("删除成功\n"); 
 		list->elem = NULL;
 	} 
 	list->length = 0;
 } 
 
-int ListEmpty(SeqList list)
-{
-	if (list.length==0)
-	return 1;
-	else 
-	return 0;
-} //测试是否为空表，为空表返回1，返回不为0 
 
-int ListLength(SeqList *list)
+void ListEmpty(SeqList *list)
 {
-	return list->length;
+	if (list->length==0)
+	{
+	printf("是一个空表\n");
+	}
+	else
+	{
+	printf("不是空表\n");
+	} 
+}   //测试是否为空表，为空表返回1，返回不为0 
+
+
+void ListLength(SeqList *list)
+{
+	printf("线性表的长度是%d\n",list->length);
 } //返回表长，并以数值进行返回 
 
-int ListInsert (SeqList *list,int position,int value)//在position处插入元素，使线性表长度加一 
+
+void Insert (SeqList *list)
 {
+	int i;
+	int value; 
+	printf("请输入你要插入的元素(输入-1终止输入)\n");
+	for (i = 0;i < MAX_SIZE;i ++)
+	{
+		scanf("%d",&value);
+		if (value == -1)
+		{
+			break;
+		}
+		list->elem[list->length] = value;
+		list->length++;
+	}
+	
+}  //顺序插入 
+
+void ListInsert (SeqList *list)//在position处插入元素，使线性表长度加一 
+{
+	int position;
+	int value;
+	int i;
+	while (1)
+	{
+	printf("请输入要插入元素的位置：(输入-1终止输入)\n");
+	scanf("%d",&position);
+	printf("请输入要插入元素的值：\n");
+	scanf("%d",&value);
+
+	if (position == -1)
+	{
+		break;
+	} 
 	if (position < 0||position > list-> length||position >= MAX_SIZE)//对position位置进行判断 
 	{
-		return -1;
+		printf("输入无效，位置无效或者列表已满\n");
 	}
-	int i;
-	for ( i = list->length;i > position;i--)
+	else
 	{
-		list->arr[i] = list->arr[i-1];	
+	 for ( i = list->length ;i > position ;i--)
+	{
+		list->elem[i] = list->elem[i-1];	
 	}
-	list->arr[position] = value;
+	list->elem[position] = value;
 	list->length++;
-} //插入在position处插入value 
+	printf("元素已经成功插入\n");
+	break;
+	}
+	}
+}  //插入在position处插入value 
+	
+
 
 int ListDelete (SeqList *list,int position ,int *value)
 {
@@ -102,7 +152,7 @@ void printList(SeqList *list)
 	int i;
 	for (i=0 ; i<list->length ;i++)
 	{
-		printf("%d",list->arr[i]);
+		printf("%d\n",list->elem[i]);
 		printf("\n");
 	}
 	printf("\n");
@@ -182,7 +232,7 @@ int main (void)
 	}
 */
 	
-	InitList (&list);
+/*	InitList (&list);
 	
 	ListInsert(&list,0,10);
 	ListInsert(&list,1,20);
@@ -233,6 +283,14 @@ int main (void)
 	
 	printf("%d\n",e);
 	printf("%d\n",pre_e);
-	printf("%d\n",next_e);
+	printf("%d\n",next_e);*/
+	InitList (&list);
+	Insert(&list);
+	ListInsert(&list);
+	ListEmpty(&list);
+	ListLength(&list);
+	printList(&list);
+	DestroyList(&list);
+	
 
 }
