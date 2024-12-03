@@ -1,4 +1,4 @@
-//ÏßĞÔ±í
+//çº¿æ€§è¡¨
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -8,39 +8,39 @@ typedef int ElemType;
 
 typedef struct
 {
-	int *elem; // ´æ·ÅÊ×µØÖ·µÄÖ¸Õë±äÁ¿ 
-	int length;//ÏßĞÔ±íµÄ³¤¶È 
-} SeqList;//½á¹¹ÌåÃû 
+	int *elem; // å­˜æ”¾é¦–åœ°å€çš„æŒ‡é’ˆå˜é‡ 
+	int length;//çº¿æ€§è¡¨çš„é•¿åº¦ 
+} SeqList;//ç»“æ„ä½“å 
 /*
-Ä¿Ç°º¯Êı»ã×Ü£º
-1.InitList³õÊ¼»¯ÏßĞÔ±í   °ÑÏßĞÔ±í³¤¶ÈÖÃÁã
-2.DestroyListÏú»ÙÏßĞÔ±í  °ÑÏßĞÔ±í³¤¶ÈÖÃÁã
-3.ListEmpty¼ì²éÊÇ·ñÎª¿Õ±í  ¿Õ±í·µ»Ø1£¬·Ç¿Õ·µ»Ø0
-4.ListLength·µ»Ø±í³¤  ·µ»ØÊıÖµlist->length
-5.ListInsert²åÈëÔªËØ  ÔÚposition´¦²åÈëÊıÖµ
-6.printList ´òÓ¡ÏßĞÔ±í
-7.GetElem  »ñÈ¡ÔªËØ  »ñÈ¡position´¦µÄÖµ 
-8.PriorElem »ñÈ¡ÏÈÇıÔªËØ  »ñÈ¡position-1´¦µÄÖµ
-9.NextElem »ñÈ¡ºó¼ÌÔªËØ  »ñÈ¡position+1´¦µÄÖµ
-10ListDelete  É¾³ı±íÖĞÔªËØ  Ä¿Ç°´æÔÚÎÊÌâ 
+ç›®å‰å‡½æ•°æ±‡æ€»ï¼š
+1.InitListåˆå§‹åŒ–çº¿æ€§è¡¨   æŠŠçº¿æ€§è¡¨é•¿åº¦ç½®é›¶
+2.DestroyListé”€æ¯çº¿æ€§è¡¨  æŠŠçº¿æ€§è¡¨é•¿åº¦ç½®é›¶
+3.ListEmptyæ£€æŸ¥æ˜¯å¦ä¸ºç©ºè¡¨  ç©ºè¡¨è¿”å›1ï¼Œéç©ºè¿”å›0
+4.ListLengthè¿”å›è¡¨é•¿  è¿”å›æ•°å€¼list->length
+5.ListInsertæ’å…¥å…ƒç´   åœ¨positionå¤„æ’å…¥æ•°å€¼
+6.printList æ‰“å°çº¿æ€§è¡¨
+7.GetElem  è·å–å…ƒç´   è·å–positionå¤„çš„å€¼ 
+8.PriorElem è·å–å…ˆé©±å…ƒç´   è·å–position-1å¤„çš„å€¼
+9.NextElem è·å–åç»§å…ƒç´   è·å–position+1å¤„çš„å€¼
+10ListDelete  åˆ é™¤è¡¨ä¸­å…ƒç´   ç›®å‰å­˜åœ¨é—®é¢˜ 
 
-//int arr[MAX_SIZE];//¶¨ÒåÊı×éarr³¤¶ÈÎª100
+//int arr[MAX_SIZE];//å®šä¹‰æ•°ç»„arré•¿åº¦ä¸º100
 
 *////////////
-void InitList(SeqList *list)//ÏßĞÔ±í³õÊ¼»¯£¬°ÑÏßĞÔ±í³¤¶ÈÖÃÁã 
+void InitList(SeqList *list)//çº¿æ€§è¡¨åˆå§‹åŒ–ï¼ŒæŠŠçº¿æ€§è¡¨é•¿åº¦ç½®é›¶ 
 {
-	list->length = 0;//³õÊ¶ÏßĞÔ±í³¤¶ÈÎªÁã
+	list->length = 0;//åˆè¯†çº¿æ€§è¡¨é•¿åº¦ä¸ºé›¶
 	list->elem = (ElemType *)malloc(MAX_SIZE*sizeof(ElemType));
-	//list->elem Îª´æ´¢¿Õ¼ä»ùÖ·£¬£¬(ElemType*)Îªint *ĞÍÄÚ´æ £¬£¬ MAX_SIZE*sizeof(ElemType) ÎªÄÚ´æ100Óë4³Ë»ıÒ»¹²ËÄ°Ù×Ö½Ú 
-	if (list->elem == NULL)//ÅĞ¶ÏÊÇ·ñ·ÖÅä³É¹¦ 
+	//list->elem ä¸ºå­˜å‚¨ç©ºé—´åŸºå€ï¼Œï¼Œ(ElemType*)ä¸ºint *å‹å†…å­˜ ï¼Œï¼Œ MAX_SIZE*sizeof(ElemType) ä¸ºå†…å­˜100ä¸4ä¹˜ç§¯ä¸€å…±å››ç™¾å­—èŠ‚ 
+	if (list->elem == NULL)//åˆ¤æ–­æ˜¯å¦åˆ†é…æˆåŠŸ 
 	{
-		printf("Memory allocation failed£¡\n");
-		printf("³õÊ¼»¯Ê§°Ü\n"); 
+		printf("Memory allocation failedï¼\n");
+		printf("åˆå§‹åŒ–å¤±è´¥\n"); 
 		exit(1);
 	} 
 	else
 	{
-		printf("³õÊ¼»¯³É¹¦\n"); 
+		printf("åˆå§‹åŒ–æˆåŠŸ\n"); 
 	}
 }
 
@@ -49,7 +49,7 @@ void DestroyList(SeqList *list)
 	if(list->elem != NULL)
 	{
 		free(list->elem);
-		printf("É¾³ı³É¹¦\n"); 
+		printf("åˆ é™¤æˆåŠŸ\n"); 
 		list->elem = NULL;
 	} 
 	list->length = 0;
@@ -60,72 +60,64 @@ void ListEmpty(SeqList *list)
 {
 	if (list->length==0)
 	{
-	printf("ÊÇÒ»¸ö¿Õ±í\n");
+	printf("æ˜¯ä¸€ä¸ªç©ºè¡¨\n");
 	}
 	else
 	{
-	printf("²»ÊÇ¿Õ±í\n");
+	printf("ä¸æ˜¯ç©ºè¡¨\n");
 	} 
-}   //²âÊÔÊÇ·ñÎª¿Õ±í£¬Îª¿Õ±í·µ»Ø1£¬·µ»Ø²»Îª0 
+}   //æµ‹è¯•æ˜¯å¦ä¸ºç©ºè¡¨ï¼Œä¸ºç©ºè¡¨è¿”å›1ï¼Œè¿”å›ä¸ä¸º0 
 
 
 void ListLength(SeqList *list)
 {
-	printf("ÏßĞÔ±íµÄ³¤¶ÈÊÇ%d\n",list->length);
-} //·µ»Ø±í³¤£¬²¢ÒÔÊıÖµ½øĞĞ·µ»Ø 
+	printf("çº¿æ€§è¡¨çš„é•¿åº¦æ˜¯%d\n",list->length);
+} //è¿”å›è¡¨é•¿ï¼Œå¹¶ä»¥æ•°å€¼è¿›è¡Œè¿”å› 
 
 
 void Insert (SeqList *list)
 {
 	int i;
 	int value; 
-	printf("ÇëÊäÈëÄãÒª´´½¨µÄÁĞ±íÔªËØ(ÊäÈë-1ÖÕÖ¹ÊäÈë)\n");
+	printf("è¯·è¾“å…¥ä½ è¦åˆ›å»ºçš„åˆ—è¡¨å…ƒç´ (è¾“å…¥-1ç»ˆæ­¢è¾“å…¥)\n");
 	for (i = 0;i < MAX_SIZE;i++)
 	{
 		scanf("%d",&value);
 		if (value == -1)
 		{
-			printf("½áÊø´´½¨ÏßĞÔ±í£¡\n");
+			printf("ç»“æŸåˆ›å»ºçº¿æ€§è¡¨ï¼\n");
 			break;
 		}
 		list->elem[list->length] = value;
 		list->length++;
 	}
-}  //Ë³Ğò²åÈë 
+}  //é¡ºåºæ’å…¥ 
 
-void ListInsert (SeqList *list)//ÔÚposition´¦²åÈëÔªËØ£¬Ê¹ÏßĞÔ±í³¤¶È¼ÓÒ» 
+void ListInsert (SeqList *list)//åœ¨positionå¤„æ’å…¥å…ƒç´ ï¼Œä½¿çº¿æ€§è¡¨é•¿åº¦åŠ ä¸€ 
 {
 	int position;
 	int j ;
 	int value;
 	int i;
-	for (i = 0; i < MAX_SIZE ;i++)
+	printf("è¯·è¾“å…¥è¦æ’å…¥å…ƒç´ çš„ä½ç½®ï¼š");
+	scanf("%d",&position);
+	if (position < 0||position > list-> length||position >= MAX_SIZE)//å¯¹positionä½ç½®è¿›è¡Œåˆ¤æ–­ 
 	{
-		printf("ÇëÊäÈëÒª²åÈëÔªËØµÄÎ»ÖÃ(ÊäÈë-1½áÊø)£º");
-		scanf("%d",&position);
-		if (position == -1)
-		{
-			printf("½áÊø²åÈë²Ù×÷£¡\n");
-			break;
-		}
-		printf("ÇëÊäÈëÒª²åÈëÔªËØµÄÖµ£º");
+		printf("è¾“å…¥æ— æ•ˆï¼Œä½ç½®æ— æ•ˆæˆ–è€…åˆ—è¡¨å·²æ»¡\n");
+	}
+	else
+	{
+		printf("è¯·è¾“å…¥è¦æ’å…¥å…ƒç´ çš„å€¼ï¼š");
 		scanf("%d",&value);
-		if (position < 0||position > list-> length||position >= MAX_SIZE)//¶ÔpositionÎ»ÖÃ½øĞĞÅĞ¶Ï 
+	 	for ( i = list->length ;i > position ;i--)
 		{
-			printf("ÊäÈëÎŞĞ§£¬Î»ÖÃÎŞĞ§»òÕßÁĞ±íÒÑÂú\n");
-		}
-		else
-		{
-	 		for ( i = list->length ;i > position ;i--)
-			{
 			list->elem[i] = list->elem[i-1];	
-			}
+		}
 			list->elem[position] = value;
 			list->length++;
-			printf("ÔªËØÒÑ¾­³É¹¦²åÈë\n");
-		}
+			printf("å…ƒç´ å·²ç»æˆåŠŸæ’å…¥\n");
 	}
-}//²åÈëÔÚposition´¦²åÈëvalue
+}//æ’å…¥åœ¨positionå¤„æ’å…¥value
 
 void ListDelete (SeqList *list)
 {
@@ -133,110 +125,85 @@ void ListDelete (SeqList *list)
 	int *value;
 	int i;
 	int j;
-	for (j = 0 ; j < MAX_SIZE ;j++)
+	printf("è¯·è¾“å…¥è¦åˆ é™¤å…ƒç´ çš„ä½ç½®ï¼š");
+	scanf("%d",&position); 
+	if (position < 0||position > list-> length||position >= MAX_SIZE)//å¯¹positionä½ç½®è¿›è¡Œåˆ¤æ–­ 
 	{
-		printf("ÇëÊäÈëÒªÉ¾³ıÔªËØµÄÎ»ÖÃ(ÊäÈë-1½áÊøÉ¾³ı)£º");
-		scanf("%d",&position); 
-		if (position == -1)
-		{
-			printf("½áÊøÉ¾³ı²Ù×÷£¡\n");
-			break;
-		}
-		if (position < 0||position > list-> length||position >= MAX_SIZE)//¶ÔpositionÎ»ÖÃ½øĞĞÅĞ¶Ï 
-		{
-			printf("ÊäÈëµÄÉ¾³ıÎ»ÖÃ²»ºÏ·¨£¡\n");
-			break;
-		}
-	
-		for ( i = position - 1;i < list->length-1 ; ++i)//½«positionÎ»ÖÃÇ°ÔªËØÇ°ÒÆ 
+		printf("è¾“å…¥çš„åˆ é™¤ä½ç½®ä¸åˆæ³•ï¼\n");
+	}
+	else
+	{
+		for ( i = position - 1;i < list->length-1 ; ++i)//å°†positionä½ç½®å‰å…ƒç´ å‰ç§» 
 		{
 			list->elem[i] = list->elem[i+1];	
 		}
 		list->length--;
-		printf("É¾³ı³É¹¦\n");
-}
-	//break ;
-}//É¾³ıposition´¦ÔªËØ 
+		printf("åˆ é™¤æˆåŠŸ\n");
+	}
+}//åˆ é™¤positionå¤„å…ƒç´  
 
 void printList(SeqList *list)
 {
 	int i;
-	printf("ÏßĞÔ±íÈçÏÂ\n"); 
+	printf("çº¿æ€§è¡¨å¦‚ä¸‹\n"); 
 	for (i=0 ; i<list->length ;i++)
 	{
 		printf("%d\t",list->elem[i]);
 	}
 	printf("\n");
-} //´òÓ¡ÏßĞÔ±í 
+} //æ‰“å°çº¿æ€§è¡¨ 
 
 void GetElem (SeqList *list)
 {
 	int position;
 	int value;
 	int i,j;
-	for (i = 0; i < list->length ; i++ )
+	printf("è¯·è¾“å…¥è¦è·å–å…ƒç´ çš„ä½ç½®ï¼š");
+	scanf("%d",&position);
+	if (position < 1 || position > list->length)
 	{
-		printf("ÇëÊäÈëÒª»ñÈ¡ÔªËØµÄÎ»ÖÃ(ÊäÈë-1½áÊø»ñÈ¡)£º\n");
-		scanf("%d",&position);
-		if (position == -1)
-		{
-			printf("½áÊø»ñÈ¡ÔªËØ£¡\n");
-			break;
-		}
-		value = list->elem[position-1];
-		if (position < 1 || position > list->length)
-		{
-			printf("ÊäÈëÎ»ÖÃÎŞĞ§\n");
-			break;
-		}
-		printf("¸ÃÎ»ÖÃÔªËØÎª%d\n",value);
+		printf("è¾“å…¥ä½ç½®æ— æ•ˆ\n");
 	}
-}  //»ñÈ¡position´¦µÄÖµ 
+	else
+	{
+		value = list->elem[position-1];
+		printf("è¯¥ä½ç½®å…ƒç´ ä¸º%d\n",value);
+	}	
+}  //è·å–positionå¤„çš„å€¼ 
 
 void PriorElem(SeqList *list)
 {
 	int position,value;
 	int i;
-	for (i = 0 ; i < list->length; i++)
-	{	
-	printf("ÇëÊäÈëÒª»ñÈ¡Ç°ÇıÔªËØµÄÎ»ÖÃ(ÊäÈë-1½áÊø»ñÈ¡)£º");
+	printf("è¯·è¾“å…¥è¦è·å–å‰é©±å…ƒç´ çš„ä½ç½®ï¼š");
 	scanf("%d",&position); 
 	if (position < 2 || position > list->length)
 	{
-		break;
+		printf("è¾“å…¥ä½ç½®æ— æ•ˆ\n");
 	}
-	if (position == -1)
+	else
 	{
-		printf("½áÊøÊäÈë£¡\n");
-		break;
+		value = list->elem[position - 2];
+		printf("è¯¥å‰é©±å…ƒç´ ä¸º%d\n",value);
 	}
-	value = list->elem[position - 2];
-	printf("¸ÃÇ°ÇıÔªËØÎª%d\n",value);
-	}
-
-} //»ñÈ¡Ç°ÇıÔªËØ 
+} //è·å–å‰é©±å…ƒç´  
 
 void NextElem(SeqList *list)
 {
 	int position,value;
-	int i;
-	for (i = 0 ; i < list->length; i++)
-	{	
-	printf("ÇëÊäÈëÒª»ñÈ¡ºó¼ÌÔªËØµÄÎ»ÖÃ£º");
+	int i;	
+	printf("è¯·è¾“å…¥è¦è·å–åç»§å…ƒç´ çš„ä½ç½®ï¼š");
 	scanf("%d",&position); 
 	if (position < 0 || position > list->length)
 	{
-		break;
+		printf("è¾“å…¥ä½ç½®æ— æ•ˆ\n");
 	}
-	if (position == -1)
+	else
 	{
-		break;
+		value = list->elem[position];
+		printf("è¯¥åç»§å…ƒç´ ä¸º%d\n",value);
 	}
-	value = list->elem[position];
-	printf("¸Ãºó¼ÌÔªËØÎª%d\n",value);
-	}
-
-}//»ñÈ¡ºó¼ÌÔªËØ 
+}//è·å–åç»§å…ƒç´  
 
 
 
@@ -245,34 +212,34 @@ void Menu()
 	int choice;
 	SeqList list;
 	int i;
-	printf("-------------------ÏßĞÔ±í»ù´¡²Ù×÷-------------\n"); 
-	printf("-------------------0.ÍË³ö²Ëµ¥-----------------\n"); 
-	printf("-------------------1.´´½¨ÏßĞÔ±í---------------\n"); 
-	printf("-------------------2.ÊäÈëÏßĞÔ±íÔªËØ-----------\n"); 
-	printf("-------------------3.»ñÈ¡Ö¸¶¨ÔªËØ-------------\n"); 
-	printf("-------------------4.»ñÈ¡Ç°ÇıÔªËØ-------------\n"); 
-	printf("-------------------5.»ñÈ¡ºó¼ÌÔªËØ-------------\n"); 
-	printf("-------------------6.¼ì²é±í³¤-----------------\n"); 
-	printf("-------------------7.´òÓ¡ÏßĞÔ±í---------------\n"); 
-	printf("-------------------8.¼ì²é±íÊÇ·ñÎª¿Õ±í---------\n"); 
-	printf("-------------------9.Ïú»ÙÏßĞÔ±í---------------\n"); 
-	printf("-------------------10.°´Ö¸¶¨Î»ÖÃ²åÈëÔªËØ------\n");
-	printf("-------------------11.°´Ö¸¶¨Î»ÖÃÉ¾³ıÔªËØ------\n");
+	printf("-------------------çº¿æ€§è¡¨åŸºç¡€æ“ä½œ-------------\n"); 
+	printf("-------------------0.é€€å‡ºèœå•-----------------\n"); 
+	printf("-------------------1.åˆ›å»ºçº¿æ€§è¡¨---------------\n"); 
+	printf("-------------------2.è¾“å…¥çº¿æ€§è¡¨å…ƒç´ -----------\n"); 
+	printf("-------------------3.è·å–æŒ‡å®šå…ƒç´ -------------\n"); 
+	printf("-------------------4.è·å–å‰é©±å…ƒç´ -------------\n"); 
+	printf("-------------------5.è·å–åç»§å…ƒç´ -------------\n"); 
+	printf("-------------------6.æ£€æŸ¥è¡¨é•¿-----------------\n"); 
+	printf("-------------------7.æ‰“å°çº¿æ€§è¡¨---------------\n"); 
+	printf("-------------------8.æ£€æŸ¥è¡¨æ˜¯å¦ä¸ºç©ºè¡¨---------\n"); 
+	printf("-------------------9.é”€æ¯çº¿æ€§è¡¨---------------\n"); 
+	printf("-------------------10.æŒ‰æŒ‡å®šä½ç½®æ’å…¥å…ƒç´ ------\n");
+	printf("-------------------11.æŒ‰æŒ‡å®šä½ç½®åˆ é™¤å…ƒç´ ------\n");
 	
 	for(i = 0 ; i < INT_MAX ; i++)
 	{
-		printf("ÇëÊäÈëÏßĞÔ±í²Ù×÷¶ÔÓ¦µÄĞòºÅ£º");
+		printf("è¯·è¾“å…¥çº¿æ€§è¡¨æ“ä½œå¯¹åº”çš„åºå·ï¼š");
 		scanf("%d",&choice);
 		if(choice < 0 || choice > 11 )
 		{
-			printf("ÊäÈë²»ºÏ·¨£¬ÇëÖØĞÂÊäÈë!\n");
+			printf("è¾“å…¥ä¸åˆæ³•ï¼Œè¯·é‡æ–°è¾“å…¥!\n");
 			continue;
 		}
 		else
 		{
 			switch(choice)
 			{
-				case 0: printf("ÍË³ö²Ëµ¥³É¹¦!\n"); exit(0); //ÍË³ö²Ëµ¥
+				case 0: printf("é€€å‡ºèœå•æˆåŠŸ!\n"); exit(0); //é€€å‡ºèœå•
 				case 1: InitList(&list); break;
 				case 2: Insert(&list); break;
 				case 3: GetElem(&list); break;
@@ -307,11 +274,11 @@ int main (void)
 	while(1)
 	{
 		Menu();
-		scanf("ÇëÑ¡Ôñ¶ÔÏßĞÔ±íµÄ²Ù×÷%d",i);
+		scanf("è¯·é€‰æ‹©å¯¹çº¿æ€§è¡¨çš„æ“ä½œ%d",i);
 		switch(i)
 		{
-			case 0: exit(0) ; //ÍË³öÏµÍ³
-			case 1: InitList(&list) ; //´´½¨ÏßĞÔ±í
+			case 0: exit(0) ; //é€€å‡ºç³»ç»Ÿ
+			case 1: InitList(&list) ; //åˆ›å»ºçº¿æ€§è¡¨
 			case 2; ListInsert(&list);
 			
 			 
