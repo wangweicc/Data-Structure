@@ -97,48 +97,51 @@ int main() {
 56 pos: 7
 */
 
-#include <stdio.h>
-#define TABLE_SIZE 18
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int hask(int k, int p) {
+    return k % p;
+}
+
 int main() {
     int n, p;
-    scanf("%d %d", &n, &p);
-
+    cin >> n >> p;
     if (n < 1 || n > 15) {
-        printf("输入个数无效！\n");
+        if (n <= 18) {
+            cout << "输入个数无效！" << endl;
+        } else {
+            cout << "输入个数超过哈希表容量。" << endl;
+        }
         return 0;
     }
-    if (n > TABLE_SIZE) {
-        printf("输入个数超过哈希表容量。\n");
-        return 0;
-    }
-
-    int values[n];
+    vector<int> input(n);
     for (int i = 0; i < n; ++i) {
-        scanf("%d", &values[i]);
+        cin >> input[i];
     }
-    int hashTable[TABLE_SIZE] = {0};
-    int occupiedCount = 0;
-
     for (int i = 0; i < n; ++i) {
-        int key = values[i];
-        int index = key % p;
-        int originalIndex = index;
-        int attempts = 0;
-        while (hashTable[index] != 0 && attempts < TABLE_SIZE) {
-            attempts++;
-            index = (originalIndex + 5 * attempts) % TABLE_SIZE;
+        int pos = hask(input[i], p);
+        int di = 0;
+        while (true) {
+            int curPos = (pos + 5 * di) % 18;
+            bool flag = false;
+            for (int j = 0; j < i; ++j) {
+                if ((pos + 5 * di) % 18 == hask(input[j], p)) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                pos = curPos;
+                break;
+            }
+            di++;
         }
-        if (attempts == TABLE_SIZE) {
-            printf("无法找到空位，可能是因为表已满。\n");
-            continue;
-        }
-        hashTable[index] = key;
-        occupiedCount++;
-        printf("%d pos: %d\n", key, index);
+        cout << input[i] << " pos: " << pos << endl;
     }
     return 0;
 }
-
 
 
 
