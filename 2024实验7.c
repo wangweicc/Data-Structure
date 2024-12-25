@@ -30,14 +30,15 @@ int main(void) {
     int n = sizeof(data) / sizeof(data[0]);
     int target;
     int i;
-    printf("请输入要查找的数字: \n");
+    
     printf("数组为：\n");
 	for(i = 0;i <10;i++){
 		
 		printf("%d\n",data[i]);
-	} 
+	}
+	printf("请输入要查找的数字: \n"); 
 	scanf("%d", &target);
-
+	
 
     // 调用二分查找函数
     int result = binarySearch(data, n, target);
